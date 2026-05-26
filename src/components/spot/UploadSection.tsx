@@ -18,7 +18,7 @@ interface UploadSectionProps {
 const UPLOAD_TYPES: Array<{
   type: UploadFileType
   label: string
-  Icon: React.ComponentType<{ size?: number; className?: string }>
+  Icon: React.ElementType
   accept: string
 }> = [
   { type: 'photo',  label: 'Foto',   Icon: Camera,   accept: 'image/*' },
