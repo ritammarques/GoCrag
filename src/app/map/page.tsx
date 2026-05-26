@@ -5,7 +5,7 @@
 
 
 import { useState, useCallback } from 'react'
-import dynamic from 'next/dynamic'
+import nextDynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
 import { LocateFixed, SlidersHorizontal, Search, X } from 'lucide-react'
 import { AppShell } from '@/components/layout/AppShell'
@@ -19,7 +19,7 @@ import { useOnline } from '@/hooks/useOnline'
 import type { SpotWithCondition } from '@/types'
 
 // Leaflet só corre no browser — importação dinâmica sem SSR
-const MapView = dynamic(
+const MapView = nextDynamic(
   () => import('@/components/map/MapView').then(m => ({ default: m.MapView })),
   {
     ssr: false,
