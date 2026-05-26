@@ -479,3 +479,4 @@ function SpotPageSkeleton() {
     </div>
   )
 }
+export const dynamic = 'force-dynamic'

@@ -116,3 +116,4 @@ export default function FavoritesPage() {
     </AppShell>
   )
 }
+export const dynamic = 'force-dynamic'

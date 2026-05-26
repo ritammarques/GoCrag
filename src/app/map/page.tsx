@@ -243,3 +243,5 @@ export default function MapPage() {
     </AppShell>
   )
 }
+
+export const dynamic = 'force-dynamic'

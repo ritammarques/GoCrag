@@ -182,3 +182,4 @@ function MenuItem({
     </button>
   )
 }
+export const dynamic = 'force-dynamic'

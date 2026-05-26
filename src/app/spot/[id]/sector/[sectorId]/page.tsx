@@ -319,3 +319,4 @@ function SectorSkeleton() {
     </div>
   )
 }
+export const dynamic = 'force-dynamic'

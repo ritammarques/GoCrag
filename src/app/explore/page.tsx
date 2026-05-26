@@ -176,3 +176,4 @@ export default function ExplorePage() {
     </AppShell>
   )
 }
+export const dynamic = 'force-dynamic'
