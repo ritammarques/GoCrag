@@ -1,0 +1,121 @@
+/* app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════
+   CSS VARIABLES — design tokens globais
+   ═══════════════════════════════════════════════════════ */
+:root {
+  --brand:      #16a34a;
+  --brand-dark: #15803d;
+
+  --color-good:    #16a34a;
+  --color-good-bg: #dcfce7;
+  --color-ok:      #d97706;
+  --color-ok-bg:   #fef3c7;
+  --color-bad:     #dc2626;
+  --color-bad-bg:  #fee2e2;
+}
+
+/* ─── Reset / Base ──────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* App mobile: sem scroll no body — cada página gere o seu próprio scroll */
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ─── Leaflet overrides ─────────────────────────────── */
+.leaflet-container {
+  font-family: var(--font-inter), Inter, system-ui, sans-serif;
+  height: 100%;
+  width: 100%;
+}
+
+/* Controles de zoom */
+.leaflet-control-zoom {
+  border: 1px solid #e5e7eb !important;
+  border-radius: 12px !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08) !important;
+  overflow: hidden;
+}
+.leaflet-control-zoom a {
+  background: #fff !important;
+  color: #374151 !important;
+  border-color: #e5e7eb !important;
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  font-size: 16px !important;
+}
+.leaflet-control-zoom a:hover {
+  background: #f9fafb !important;
+}
+
+/* Tooltip do mapa */
+.leaflet-tooltip {
+  font-family: var(--font-inter), Inter, system-ui, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 4px 10px !important;
+  border-radius: 8px !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1) !important;
+  background: #fff !important;
+  color: #111827 !important;
+}
+.leaflet-tooltip-top::before {
+  border-top-color: #e5e7eb !important;
+}
+
+/* ─── @layer utilities — cores de condição ──────────── */
+/* Definidas aqui porque são usadas em strings dinâmicas JS
+   e o Tailwind purge não as detecta no template scanning. */
+@layer utilities {
+  .bg-good    { background-color: var(--color-good); }
+  .bg-ok      { background-color: var(--color-ok); }
+  .bg-bad     { background-color: var(--color-bad); }
+  .bg-good-bg { background-color: var(--color-good-bg); }
+  .bg-ok-bg   { background-color: var(--color-ok-bg); }
+  .bg-bad-bg  { background-color: var(--color-bad-bg); }
+  .text-good-text { color: #14532d; }
+  .text-ok-text   { color: #78350f; }
+  .text-bad-text  { color: #7f1d1d; }
+  .border-good { border-color: var(--color-good); }
+  .border-ok   { border-color: var(--color-ok); }
+  .border-bad  { border-color: var(--color-bad); }
+}
+
+/* ─── Scrollbar discreta (Webkit) ───────────────────── */
+::-webkit-scrollbar           { width: 3px; height: 3px; }
+::-webkit-scrollbar-track     { background: transparent; }
+::-webkit-scrollbar-thumb     { background: #d1d5db; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+/* ─── Animações ─────────────────────────────────────── */
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes skeletonPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .45; }
+}
+
+.animate-slide-up {
+  animation: slideUp .28s cubic-bezier(.4, 0, .2, 1) both;
+}
+.animate-fade-in {
+  animation: fadeIn .2s ease both;
+}
+.skeleton {
+  background: #e5e7eb;
+  border-radius: 6px;
+  animation: skeletonPulse 1.6s ease-in-out infinite;
+}
