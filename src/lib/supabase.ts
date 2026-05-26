@@ -1,18 +1,26 @@
 // lib/supabase.ts
-// Cliente Supabase — usado em componentes cliente
-// Para Server Components usar createServerClient do @supabase/ssr
+// Cliente Supabase para Client Components.
+// Lazy: só cria a instância quando é chamado pela primeira vez,
+// nunca durante o build (onde as env vars não existem).
 
 import { createBrowserClient } from '@supabase/ssr'
 
-// As variáveis de ambiente devem estar no .env.local
-// NEXT_PUBLIC_SUPABASE_URL e NEXT_PUBLIC_SUPABASE_ANON_KEY
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
+const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? ''
 
-export function createClient() {
-  return createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
+// Singleton lazy — criado na primeira chamada, não no import
+let _client: ReturnType<typeof createBrowserClient> | null = null
+
+export function getSupabaseClient() {
+  if (!_client) {
+    _client = createBrowserClient(SUPABASE_URL, SUPABASE_KEY)
+  }
+  return _client
 }
 
-// Instância singleton para uso directo em hooks/componentes cliente
-export const supabase = createClient()
+// Alias para compatibilidade com o código existente
+export const supabase = new Proxy({} as ReturnType<typeof createBrowserClient>, {
+  get(_target, prop) {
+    return (getSupabaseClient() as any)[prop]
+  },
+})
