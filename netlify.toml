@@ -1,8 +1,8 @@
-# netlify.toml — GoCrag static SPA
 [build]
+  # O script substitui o placeholder pela env var antes de publicar
+  command = "sed -i \"s|OPENWEATHER_API_KEY|$OPENWEATHER_API_KEY|g\" js/app.js"
   publish = "."
 
-# SPA fallback: todas as rotas servem o index.html
 [[redirects]]
   from = "/*"
   to   = "/index.html"
